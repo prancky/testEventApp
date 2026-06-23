@@ -1,0 +1,7 @@
+appId: "${APP_ID}"
+name: "Increase Counter and Wait"
+# Common reusable flow: Increase counter and wait for animation
+---
+- tapOn:
+    id: "increaseBtn"
+- waitForAnimationToEnd: {}

@@ -1,0 +1,10 @@
+appId: "${APP_ID}"
+name: "Input Text and Wait"
+# Common reusable flow: Tap, input text and wait
+---
+- tapOn:
+    id: "${WIDGET_ID}"
+- inputText:
+    id: "${WIDGET_ID}"
+    text: "${TEXT_VALUE}"
+- waitForAnimationToEnd: {}

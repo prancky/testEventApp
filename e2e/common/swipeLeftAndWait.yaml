@@ -1,0 +1,9 @@
+appId: "${APP_ID}"
+name: "Swipe Left and Wait"
+# Common reusable flow: Swipe element left and wait for animation
+---
+- swipe:
+    from:
+      id: "${WIDGET_ID}"
+    direction: LEFT
+- waitForAnimationToEnd: {}

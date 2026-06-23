@@ -1,0 +1,71 @@
+{
+  "generated": "2026-06-23T08:25:36.797Z",
+  "appName": "testEventApp",
+  "projectPath": "./apps/ReactNative/testeventapp",
+  "totalSuites": 1,
+  "totalTests": 2,
+  "suites": [
+    {
+      "id": "a37c5cad-9f45-4be0-9adb-9faf121acb9a",
+      "name": "HomeScreen",
+      "screenName": "HomeScreen",
+      "fileName": "homeScreen.yaml",
+      "testCount": 2,
+      "tests": [
+        {
+          "id": "9ecb244d-4963-4678-9935-1544b389c2b9",
+          "title": "Verify widget ASText:welcomeText is displayed on the screen",
+          "description": "Verifies that the widget:welcomeText renders properly and is visible to the user.",
+          "type": "ASText",
+          "steps": [
+            {
+              "action": "assertVisible",
+              "element": "welcomeText",
+              "value": "",
+              "optional": false,
+              "testDataKey": null
+            }
+          ],
+          "preconditions": [
+            {
+              "action": "launchApp",
+              "element": "",
+              "value": "",
+              "testCaseId": null
+            }
+          ]
+        },
+        {
+          "id": "a15e07c7-eac5-4849-81c1-4608cbd01fe8",
+          "title": "Verify widget ASText:welcomeText is displayed on the screen",
+          "description": "Verifies that the label of widget:welcomeText appears correctly and is readable.",
+          "type": "ASText",
+          "steps": [
+            {
+              "action": "scrollUntilVisible",
+              "element": "welcomeText",
+              "value": "DOWN",
+              "optional": false,
+              "testDataKey": null
+            },
+            {
+              "action": "assertVisible",
+              "element": "welcomeText",
+              "value": "",
+              "optional": false,
+              "testDataKey": null
+            }
+          ],
+          "preconditions": [
+            {
+              "action": "launchApp",
+              "element": "",
+              "value": "",
+              "testCaseId": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

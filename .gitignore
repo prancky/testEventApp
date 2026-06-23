@@ -1,0 +1,28 @@
+node_modules
+# Environment files - do not commit to version control
+.env
+.env.development
+.env.production
+.env.staging
+.env.local
+.env.*.local
+
+# Build output
+dist/
+web-build/
+
+# --- AppStudio custom-extension: build artifacts ---
+node_modules/
+.expo/
+android/build/
+android/.gradle/
+android/.cxx/
+android/app/build/
+android/app/.cxx/
+android/captures/
+android/local.properties
+ios/build/
+ios/Pods/
+ios/DerivedData/
+*.hprof
+.DS_Store

@@ -1,0 +1,11 @@
+appId: ${APP_ID}
+name: Master Test Suite
+# Generated Consolidated Test Suite Information:
+# Each screen has a single consolidated flow file containing all its test cases
+# Suite: HomeScreen
+# Consolidated flow file: homeScreen.yaml
+# Contains 2 test case(s):
+
+---
+- runFlow:
+    file: homeScreen.yaml

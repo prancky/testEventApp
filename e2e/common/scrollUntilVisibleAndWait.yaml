@@ -1,0 +1,9 @@
+appId: "${APP_ID}"
+name: "Scroll Until Visible and Wait"
+# Common reusable flow: Scroll until element is visible and wait
+---
+- scrollUntilVisible:
+    element:
+      id: "${WIDGET_ID}"
+    direction: DOWN
+- waitForAnimationToEnd: {}

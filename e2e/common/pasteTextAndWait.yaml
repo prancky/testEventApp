@@ -1,0 +1,8 @@
+appId: "${APP_ID}"
+name: "Paste Text and Wait"
+# Common reusable flow: Paste text and wait for animation
+---
+- pasteText:
+    id: "${WIDGET_ID}"
+    text: "${TEXT_VALUE}"
+- waitForAnimationToEnd: {}

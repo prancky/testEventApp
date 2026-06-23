@@ -1,0 +1,7 @@
+appId: "${APP_ID}"
+name: "Tap and Wait"
+# Common reusable flow: Tap element and wait for animation
+---
+- tapOn:
+    id: "${WIDGET_ID}"
+- waitForAnimationToEnd: {}

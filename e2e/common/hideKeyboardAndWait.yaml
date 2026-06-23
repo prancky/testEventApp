@@ -1,0 +1,6 @@
+appId: "${APP_ID}"
+name: "Hide Keyboard and Wait"
+# Common reusable flow: Hide keyboard and wait for animation
+---
+- hideKeyboard
+- waitForAnimationToEnd: {}

@@ -1,0 +1,8 @@
+appId: "${APP_ID}"
+name: "Erase Text and Wait"
+# Common reusable flow: Tap element, erase text and wait
+---
+- tapOn:
+    id: "${WIDGET_ID}"
+- eraseText
+- waitForAnimationToEnd: {}

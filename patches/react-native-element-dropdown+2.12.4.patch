@@ -1,0 +1,17 @@
+diff --git a/node_modules/react-native-element-dropdown/lib/module/index.js b/node_modules/react-native-element-dropdown/lib/module/index.js
+index a74c2de..f949ccc 100644
+--- a/node_modules/react-native-element-dropdown/lib/module/index.js
++++ b/node_modules/react-native-element-dropdown/lib/module/index.js
+@@ -1,8 +1,5 @@
+ import Dropdown from './components/Dropdown';
+ import MultiSelect from './components/MultiSelect';
+ import SelectCountry from './components/SelectCountry';
+-import { IDropdownRef } from './components/Dropdown/model';
+-import { IMultiSelectRef } from './components/MultiSelect/model';
+-import { ISelectCountryRef } from './components/SelectCountry/model';
+-export { Dropdown, MultiSelect, SelectCountry, IDropdownRef, IMultiSelectRef, ISelectCountryRef };
+-//# sourceMappingURL=index.js.map
+\ No newline at end of file
++
++export { Dropdown, MultiSelect, SelectCountry };
+\ No newline at end of file

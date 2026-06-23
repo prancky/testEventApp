@@ -1,0 +1,7 @@
+appId: "${APP_ID}"
+name: "Copy Text and Wait"
+# Common reusable flow: Copy text from element and wait
+---
+- copyTextFrom:
+    id: "${WIDGET_ID}"
+- waitForAnimationToEnd: {}

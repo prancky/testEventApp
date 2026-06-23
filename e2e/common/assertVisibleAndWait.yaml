@@ -1,0 +1,7 @@
+appId: "${APP_ID}"
+name: "Assert Visible and Wait"
+# Common reusable flow: Assert element is visible and wait for animation
+---
+- assertVisible:
+    id: "${WIDGET_ID}"
+- waitForAnimationToEnd: {}

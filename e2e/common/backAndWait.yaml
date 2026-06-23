@@ -1,0 +1,6 @@
+appId: "${APP_ID}"
+name: "Back and Wait"
+# Common reusable flow: Go back and wait for animation
+---
+- back: {}
+- waitForAnimationToEnd: {}

@@ -1,0 +1,7 @@
+appId: "${APP_ID}"
+name: "Double Tap and Wait"
+# Common reusable flow: Double tap element and wait for animation
+---
+- doubleTapOn:
+    id: "${WIDGET_ID}"
+- waitForAnimationToEnd: {}

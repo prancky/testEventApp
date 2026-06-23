@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+      // Targeting ESNext
+      "target": "esnext",
+      // Using CommonJS module system
+      "module": "commonjs",
+      // Specifying libraries
+      "lib": ["es6", "es2018.promise"],
+      // JSX configuration for React Native
+      "jsx": "react-native",
+      // No emitting of output files
+      "noEmit": true,
+      // Enforcing strict type-checking
+      "strict": true,
+      // Module resolution strategy
+      "moduleResolution": "node",
+      // Base URL for module resolution
+      "baseUrl": ".",
+      // Allowing synthetic default imports
+      "allowSyntheticDefaultImports": true,
+      // Resolving JSON modules
+      "resolveJsonModule": true,
+      // Enabling ECMAScript module interoperability
+      "esModuleInterop": true,
+      // Skipping type checking of declaration files
+      "skipLibCheck": true,
+      // Configuring paths for module resolution
+      "paths": {
+        "@/*": ["./src/*"]
+      }
+    },
+    // Excluding certain files from compilation
+    "exclude": ["node_modules", "babel.config.js", "metro.config.js", ".eslintrc.js"]
+  }

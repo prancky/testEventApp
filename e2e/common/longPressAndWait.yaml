@@ -1,0 +1,7 @@
+appId: "${APP_ID}"
+name: "Long Press and Wait"
+# Common reusable flow: Long press element and wait for animation
+---
+- longPressOn:
+    id: "${WIDGET_ID}"
+- waitForAnimationToEnd: {}

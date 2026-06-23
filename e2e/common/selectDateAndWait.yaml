@@ -1,0 +1,8 @@
+appId: "${APP_ID}"
+name: "Select Date and Wait"
+# Common reusable flow: Input date and wait for animation
+---
+- inputText:
+    id: "${WIDGET_ID}"
+    text: "${DATE_VALUE}"
+- waitForAnimationToEnd: {}

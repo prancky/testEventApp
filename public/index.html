@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="%LANG_ISO_CODE%">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <!-- 
+      This viewport works for phones with notches.
+      It's optimized for gestures by disabling global zoom.
+     -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover"
+    />
+    <title>%WEB_TITLE%</title>
+    <style>
+      /**
+       * Extend the react-native-web reset:
+       * https://github.com/necolas/react-native-web/blob/master/packages/react-native-web/src/exports/StyleSheet/initialRules.js
+       */
+      html,
+      body,
+      #root {
+        width: 100%;
+        /* To smooth any scrolling behavior */
+        -webkit-overflow-scrolling: touch;
+        margin: 0px;
+        padding: 0px;
+        /* Allows content to fill the viewport and go beyond the bottom */
+        min-height: 100%;
+      }
+
+      #root {
+        display: flex;
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: auto;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        /* Prevent text size change on orientation change https://gist.github.com/tfausak/2222823#file-ios-8-web-app-html-L138 */
+        -webkit-text-size-adjust: 100%;
+        height: calc(100% + env(safe-area-inset-top));
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        /* Allows you to scroll below the viewport; default value is visible */
+        overflow-y: auto;
+        overscroll-behavior-y: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -ms-overflow-style: scrollbar;
+      }
+
+      input,
+      textarea {
+        outline: none !important;
+      }
+
+      .tns-liveregion {
+        display: none;
+      }
+
+      .swipe-icon {
+        transition:
+          width 0.3s,
+          border-radius 0.3s,
+          height 0.3s;
+        left: 0px;
+        border-width: 0px !important;
+      }
+
+      .swipe-done {
+        transition: all 0.3s;
+        width: inherit;
+        left: 0 !important;
+        height: inherit;
+        border-radius: inherit;
+      }
+
+      .swipe-text {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+      }
+    </style>
+    
+    <link
+      rel="stylesheet"
+      href="https://content.oneapi.world/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css"
+      integrity="sha384-kcNNzf7wI8//ZkNUaDd5JwxLoFaBgkj9Z4O4NwtuX9Lkmsz0HoITOxJsGkYxDuyG"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+      integrity="sha384-4r9SMzlCiUSd92w9v1wROFY7DlBc5sDYaEBhcCJR7Pm2nuzIIGKVRtYWlf6w+GG4"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <!-- 
+      A generic no script element with a reload button and a message.
+      Feel free to customize this however you'd like.
+    -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://content.oneapi.world/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"
+      integrity="sha384-l/y5WJTphApmSlx76Ev6k4G3zxu/+19CVvn9OTKI7gs4Yu5Hm8mjpdtdr5oyhnNo"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var initialMouse = 0;
+      var slideMovementTotal = 0;
+      var mouseIsDown = false;
+      var slider = $('.swipe-icon');
+      var clearCookiesExecuted = false;
+      $(document).ready(function () {
+        // Symplr Authorization
+        window.addEventListener('message', event => {
+          const messageData = event.data;
+
+          if (
+            ['http://localhost:3000', 'https://101studio.co'].includes(
+              event.origin
+            )
+          ) {
+            if (messageData.type === 'SYMPLR_AUTHORIZATION') {
+              localStorage.setItem('symplr-authorization', messageData.payload);
+
+              // Clear cookie - only execute once
+              if (!clearCookiesExecuted) {
+                clearCookiesExecuted = true;
+                try {
+                  $.ajax({
+                    url: 'https://api-symplr-dev.101studio.co/appstudio-proxy-service/1.0.0/clear-cookies', // Replace with your API URL
+                    method: 'GET', // or "POST"
+                    xhrFields: {
+                      withCredentials: true, // Ensures cookies are sent
+                    },
+                    headers: {
+                      'symplr-authorization': `Bearer ${messageData.payload}`,
+                    },
+                    success: function (response) {
+                      console.log('Response:', response);
+                    },
+                    error: function (xhr, status, error) {
+                      console.error('Error:', error);
+                    },
+                  });
+                } catch (error) {
+                  console.error('clear-cookies request failed:', error);
+                }
+              }
+            }
+          }
+        });
+
+        window.parent.postMessage({ type: 'EMULATOR_READY' }, '*');
+
+        // Slider
+        try {
+          setInterval(function () {
+            var element = $('[aria-label="my-slider"]');
+            if (element.length) {
+              var firstChild = $(element).children().first();
+              $(firstChild).addClass('owl-carousel');
+              setTimeout(() => {
+                if ($('.owl-carousel').children().length > 0) {
+                  $('.owl-carousel').owlCarousel({
+                    dots: false,
+                    nav: false,
+                    items: 1,
+                    center: true,
+                    margin: 20,
+                  });
+                }
+              }, 1000);
+            }
+          }, 1500); // Check every 1 second
+        } catch (error) {
+          console.log('Init slider error: ', error);
+        }
+        // Swipe Button
+        $(document).on('mousedown touchstart', '.swipe-icon', function (event) {
+          mouseIsDown = true;
+          slideMovementTotal =
+            $('.swipe-background').width() - $(this).width() + 2;
+          initialMouse = event.clientX || event.originalEvent.touches[0].pageX;
+        });
+        $(document).on('mouseleave', '.swipe-icon', function (event) {
+          mouseIsDown = false;
+          $('.swipe-icon').blur();
+          $('.swipe-text').fadeTo(300, 1);
+          $('.swipe-icon').animate(
+            {
+              left: '0px',
+            },
+            300
+          );
+        });
+        $(document).on('mousemove touchmove', '.swipe-icon', function (event) {
+          if (!mouseIsDown) return;
+          var currentMouse =
+            event.clientX || event.originalEvent.touches[0].pageX;
+          var relativeMouse = currentMouse - initialMouse;
+          var slidePercent = 1 - relativeMouse / slideMovementTotal;
+          $('.swipe-text').fadeTo(0, slidePercent);
+          if (relativeMouse <= 0) {
+            $('.swipe-icon').css({ left: '0px' });
+            return;
+          }
+          if (relativeMouse >= slideMovementTotal + 10) {
+            $('.swipe-icon').css({ left: slideMovementTotal + 'px' });
+            return;
+          }
+          $('.swipe-icon').css({ left: relativeMouse - 10 });
+        });
+        $(document).on('mouseup touchend', '.swipe-icon', function (event) {
+          mouseIsDown = false;
+          $('.swipe-text').fadeTo(300, 1);
+          $('.swipe-icon').animate(
+            {
+              left: '0px',
+            },
+            300
+          );
+        });
+
+        try {
+          setInterval(function () {
+            // Slider
+            var element = $('[aria-label="swipe-button"]');
+            if (element.length) {
+              // Swipe background
+              var swipeBackground = $(element).children().first();
+              if (!$(swipeBackground).hasClass('swipe-background')) {
+                $(swipeBackground).addClass('swipe-background');
+                $(swipeBackground).attr('id', 'swipe-background');
+                // Swipe text
+                const swipeText = $(swipeBackground).children().first();
+                if (!$(swipeText).hasClass('swipe-text')) {
+                  $(swipeText).addClass('swipe-text');
+                  $(swipeText).attr('id', 'swipe-text');
+                }
+                // Swipe button
+                const swipeIcon = $(swipeBackground).children().eq(1);
+                if (!$(swipeIcon).hasClass('swipe-icon')) {
+                  $(swipeIcon).addClass('swipe-icon');
+                  $(swipeIcon).attr('id', 'swipe-icon');
+                }
+              }
+            }
+          }, 1500); // Check every 1 second
+        } catch (error) {
+          console.log('Init slider error: ', error);
+        }
+        // Inform document is loaded
+        try {
+          window.parent.postMessage('DOCUMENT_LOADED', {
+            targetOrigin: '*',
+          });
+        } catch (error) {
+          console.log('Window post message: ', error);
+        }
+      });
+    </script>
+    <!-- NOTE: prior to v2.2.1 tiny-slider.js need to be in <body> -->
+    <noscript>
+      <form
+        action=""
+        style="
+          background-color: #fff;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 9999;
+        "
+      >
+        <div
+          style="
+            font-size: 18px;
+            font-family: Helvetica, sans-serif;
+            line-height: 24px;
+            margin: 10%;
+            width: 80%;
+          "
+        >
+          <p>Oh no! It looks like JavaScript is not enabled in your browser.</p>
+          <p style="margin: 20px 0">
+            <button
+              type="submit"
+              style="
+                background-color: #4630eb;
+                border-radius: 100px;
+                border: none;
+                box-shadow: none;
+                color: #fff;
+                cursor: pointer;
+                font-weight: bold;
+                line-height: 20px;
+                padding: 6px 16px;
+              "
+            >
+              Reload
+            </button>
+          </p>
+        </div>
+      </form>
+    </noscript>
+    <!-- The root element for your Expo app. -->
+    <div id="root"></div>
+  </body>
+</html>

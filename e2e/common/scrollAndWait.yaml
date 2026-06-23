@@ -1,0 +1,8 @@
+appId: "${APP_ID}"
+name: "Scroll and Wait"
+# Common reusable flow: Scroll element down and wait for animation
+---
+- scroll:
+    id: "${WIDGET_ID}"
+    direction: DOWN
+- waitForAnimationToEnd: {}

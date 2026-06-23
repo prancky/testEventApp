@@ -1,0 +1,22 @@
+appId: "${APP_ID}"
+name: "homeScreenTestFlow"
+# Suite: HomeScreen
+# Consolidated test flow for HomeScreen screen
+# Contains 2 test case(s):
+---
+- launchApp: {}
+# 1. Verify widget ASText:welcomeText is displayed on the screen: Verifies that the widget:welcomeText renders properly and is visible to the user.
+- runFlow:
+    file: "common/assertVisibleAndWait.yaml"
+    env:
+      WIDGET_ID: "welcomeText"
+- waitForAnimationToEnd: {}
+# 2. Verify widget ASText:welcomeText is displayed on the screen: Verifies that the label of widget:welcomeText appears correctly and is readable.
+- runFlow:
+    file: "common/scrollUntilVisibleAndWait.yaml"
+    env:
+      WIDGET_ID: "welcomeText"
+- runFlow:
+    file: "common/assertVisibleAndWait.yaml"
+    env:
+      WIDGET_ID: "welcomeText"

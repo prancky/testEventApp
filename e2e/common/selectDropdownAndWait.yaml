@@ -1,0 +1,20 @@
+appId: "${APP_ID}"
+name: "Select Dropdown and Wait"
+# Common reusable flow: Select dropdown option and wait
+---
+- assertVisible:
+    id: "${WIDGET_ID}"
+- tapOn:
+    id: "${WIDGET_ID}"
+- repeat:
+    while:
+      notVisible:
+        text: "${OPTION_VALUE}"
+    commands:
+      - swipe:
+          from:
+            id: "${WIDGET_ID} flatlist"
+          direction: "UP"
+- tapOn:
+    text: "${OPTION_VALUE}"
+- waitForAnimationToEnd: {}
