@@ -82,7 +82,7 @@
     "rn-swipe-button": "3.0.1",
     "tsx": "4.21.0",
     "xdate": "0.8.2",
-    "@react-native-community/blur": "^4.4.1"
+    "@react-native-community/blur": "^6.4.1"
   },
   "devDependencies": {
     "babel-plugin-transform-remove-console": "6.9.4",
