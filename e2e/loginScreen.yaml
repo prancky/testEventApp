@@ -1,0 +1,12 @@
+appId: "${APP_ID}"
+name: "loginScreenTestFlow"
+# Suite: LoginScreen
+# Consolidated test flow for LoginScreen screen
+# Contains 1 test case(s):
+---
+- launchApp: {}
+# 1. Verify widget ASImage:ASImage-974121 is displayed on the screen: Verifies that the widget:ASImage-974121 renders properly and is visible to the user.
+- runFlow:
+    file: "common/assertVisibleAndWait.yaml"
+    env:
+      WIDGET_ID: "ASImage-974121"

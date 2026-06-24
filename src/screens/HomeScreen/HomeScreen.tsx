@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { text, color } from '@/assets';
+import { text } from '@/assets';
 
 import { ASContainer, ASText } from '@/components';
 
 import { Platform, StyleSheet } from 'react-native';
+import { sharedStyles } from '@/components/shared/sharedStyles';
 
 import { useClearHeaderActions } from '@/utils/screen.effects';
-import { executeCustomFunction } from '@/extensions';
 
 import { STRINGS } from '@/strings';
 
@@ -24,15 +23,6 @@ type ScreenProps = {
 const HomeScreen: React.FC<ScreenProps> = ({ route }) => {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    executeCustomFunction(
-      'DashboardFunctions.handleManageBooks',
-      navigation,
-      {},
-      {},
-    );
-  }, []);
-
   useClearHeaderActions(navigation);
 
   return (
@@ -42,7 +32,7 @@ const HomeScreen: React.FC<ScreenProps> = ({ route }) => {
       backgroundImageResizeMode={'contain'}
       name={'ASContainer-826432'}
       testID={'d737e0aa-b3f6-4801-a57f-92e3b159abda'}
-      style={styles.aSContainerStyle}
+      style={sharedStyles.container}
       testId={'ASContainer-826432'}
     >
       <ASText
@@ -60,13 +50,6 @@ const HomeScreen: React.FC<ScreenProps> = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  aSContainerStyle: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: color.surface.default,
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-  },
   welcomeTextStyle: {
     marginTop: 50,
     alignSelf: 'center',

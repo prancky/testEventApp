@@ -14,7 +14,23 @@ project 'testEventApp',
 	'StagingRelease' => :release,
 	'ProductionDebug' => :debug,
 	'ProductionRelease' => :release
+
+project 'testEventApp',
+	'DevelopmentDebug' => :debug,
+	'DevelopmentRelease' => :release,
+	'StagingDebug' => :debug,
+	'StagingRelease' => :release,
+	'ProductionDebug' => :debug,
+	'ProductionRelease' => :release
 prepare_react_native_project!
+
+pod 'GoogleUtilities', :modular_headers => true
+pod 'Firebase', :modular_headers => true
+pod 'FirebaseCoreInternal', :modular_headers => true
+pod 'FirebaseCore', :modular_headers => true
+pod 'FirebaseRemoteConfig', :modular_headers => true
+pod 'FirebaseABTesting', :modular_headers => true
+pod 'FirebaseInstallations', :modular_headers => true
 
 pod 'GoogleUtilities', :modular_headers => true
 pod 'Firebase', :modular_headers => true
@@ -47,6 +63,15 @@ target 'testEventApp' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Optimize release build size: strip debug symbols and enable dead code stripping
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['STRIP_INSTALLED_PRODUCT'] = 'YES'
+        config.build_settings['STRIP_STYLE'] = 'all'
+        config.build_settings['DEAD_CODE_STRIPPING'] = 'YES'
+      end
+    end
 
     # Optimize release build size: strip debug symbols and enable dead code stripping
     installer.pods_project.targets.each do |target|

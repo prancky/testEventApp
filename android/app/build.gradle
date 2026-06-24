@@ -86,6 +86,10 @@ android {
       checkReleaseBuilds false
       abortOnError false
     }
+    lintOptions {
+      checkReleaseBuilds false
+      abortOnError false
+    }
     defaultConfig {
         applicationId "com.testeventapp"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -96,8 +100,20 @@ android {
         multiDexEnabled true
         missingDimensionStrategy 'react-native-camera', 'general'
         vectorDrawables.useSupportLibrary = true
+        resValue "string", "build_config_package", applicationId
+        multiDexEnabled true
+        missingDimensionStrategy 'react-native-camera', 'general'
+        vectorDrawables.useSupportLibrary = true
     }
     signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
         release {
             if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
                 storeFile file(MYAPP_UPLOAD_STORE_FILE)
@@ -128,6 +144,21 @@ android {
             resValue "string", "app_name", "testEventApp"
         }
     }
+    flavorDimensions "default"
+    productFlavors {
+        development {
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "testEventApp-Dev"
+        }
+        staging {
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "testEventApp-Staging"
+        }
+        production {
+            applicationIdSuffix ""
+            resValue "string", "app_name", "testEventApp"
+        }
+    }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -137,6 +168,7 @@ android {
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
+            signingConfig signingConfigs.release
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -153,6 +185,15 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+project.ext.envConfigFiles = [
+    development: ".env.development",
+    production: ".env.production",
+    staging: ".env.staging"
+]
+apply from: file("../../node_modules/react-native-config/android/dotenv.gradle")
+
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
 
 project.ext.envConfigFiles = [
     development: ".env.development",

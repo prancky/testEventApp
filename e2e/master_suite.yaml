@@ -6,6 +6,12 @@ name: Master Test Suite
 # Consolidated flow file: homeScreen.yaml
 # Contains 2 test case(s):
 
+# Suite: LoginScreen
+# Consolidated flow file: loginScreen.yaml
+# Contains 1 test case(s):
+
 ---
 - runFlow:
     file: homeScreen.yaml
+- runFlow:
+    file: loginScreen.yaml

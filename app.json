@@ -1,4 +1,5 @@
 {
   "name": "testEventApp",
-  "displayName": "testEventApp"
+  "displayName": "testEventApp",
+  "expo": {}
 }
